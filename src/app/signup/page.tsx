@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const router = useRouter()
@@ -12,12 +13,51 @@ const Signup = () => {
     password: "",
     username: "",
   });
-  const [buttondisabled, setButtondisabled] =React.useState()
-  const onSignup = async () => {};
+  const [buttondisabled, setButtondisabled] =React.useState<boolean>(false)
+  const [loding, setLoding] =React.useState<boolean>(false)
+  const onSignup = async () => {
+    try {
+      setLoding(true)
+      toast.promise(
+        axios.post("/api/users/signup", user),
+        {
+          loading: "Signing up...",
+          success: (res) => {
+            console.log(res.data);
+            router.push('/login');
+            return res.data.message;
+          },
+          error: (err) => {
+            console.log(err);
+            return err;
+          }
+        }
+      );
+   
+  //  console.log("user created ",respons.data);
+    } catch (error:any) {
+      console.log(error.message,"from signup");
+      
+      toast.error(error.message)
+    }finally{
+      setLoding(false)
+    }
+
+  };
+
+useEffect(()=>{
+if (user.email.length >0 && user.password.length>0 && user.username.length>0) {
+  setButtondisabled(false)
+}else{
+  setButtondisabled(true)
+}
+},[user])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1>Signup</h1>
+    
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-black">
+      <Toaster/>
+      <h1 className="text-white" >{ loding?"Loding":'Signup'}</h1>
       <hr />
       <label htmlFor="username">Username</label>
       <input
@@ -47,6 +87,7 @@ const Signup = () => {
         placeholder="Password"
       />
       <button
+      disabled={!!buttondisabled}
         onClick={onSignup}
         className="bg-blue-400 duration-300 hover:bg-blue-600 p-2 rounded-sm mt-3 font-bold text-lg tracking-wide"
       >

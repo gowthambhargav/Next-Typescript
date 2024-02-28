@@ -1,6 +1,10 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [user, setUser] = React.useState({
