@@ -6,12 +6,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Signup = () => {
+  const router = useRouter()
   const [user, setUser] = React.useState({
     email: "",
     password: "",
     username: "",
   });
-
+  const [buttondisabled, setButtondisabled] =React.useState()
   const onSignup = async () => {};
 
   return (
