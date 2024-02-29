@@ -55,13 +55,13 @@ if (user.email.length >0 && user.password.length>0 && user.username.length>0) {
 
   return (
     
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-black">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Toaster/>
       <h1 className="text-white" >{ loding?"Loding":'Signup'}</h1>
       <hr />
       <label htmlFor="username">Username</label>
       <input
-        className="p-2 outline-none rounded-md"
+        className="p-2 outline-none rounded-md  text-black"
         type="text"
         id="username"
         value={user.username}
@@ -70,7 +70,7 @@ if (user.email.length >0 && user.password.length>0 && user.username.length>0) {
       />
       <label htmlFor="email">Email</label>
       <input
-        className="p-2 outline-none rounded-md"
+        className="p-2 outline-none rounded-md  text-black"
         type="text"
         id="email"
         value={user.email}
@@ -79,7 +79,7 @@ if (user.email.length >0 && user.password.length>0 && user.username.length>0) {
       />
       <label htmlFor="password">Password</label>
       <input
-        className="p-2 outline-none rounded-md"
+        className="p-2 outline-none rounded-md  text-black"
         type="password"
         id="password"
         value={user.password}
