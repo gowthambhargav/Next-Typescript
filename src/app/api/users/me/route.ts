@@ -5,6 +5,7 @@ import { connect } from "@/dbConfig/dbConfig";
 
 
 export async function GET(request:NextRequest){
+    connect()
 try {
     const userId = await getDataFromToken(request)
    const user = await User.findById(userId).select("-password")
